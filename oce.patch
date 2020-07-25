@@ -1,0 +1,47 @@
+diff --git src/OSD/OSD_MemInfo.cxx src/OSD/OSD_MemInfo.cxx
+index 25ebc768..01d77bb6 100644
+--- src/OSD/OSD_MemInfo.cxx
++++ src/OSD/OSD_MemInfo.cxx
+@@ -140,9 +140,6 @@ void OSD_MemInfo::Update()
+   }
+   aFile.close();
+
+-  struct mallinfo aMI = mallinfo();
+-  myCounters[MemHeapUsage] = aMI.uordblks;
+-
+ #elif (defined(__APPLE__))
+   struct task_basic_info aTaskInfo;
+   mach_msg_type_number_t aTaskInfoCount = TASK_BASIC_INFO_COUNT;
+diff --git src/OSD/OSD_signal.cxx src/OSD/OSD_signal.cxx
+index ef297915..8a80447b 100644
+--- src/OSD/OSD_signal.cxx
++++ src/OSD/OSD_signal.cxx
+@@ -217,9 +217,6 @@ static void Handler (const int theSignal)
+   if ( ADR_ACT_SIGIO_HANDLER != NULL )
+     (*ADR_ACT_SIGIO_HANDLER)() ;
+ #ifdef linux
+-  if (fFltExceptions)
+-    feenableexcept (FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+-    //feenableexcept (FE_INVALID | FE_DIVBYZERO);
+ #endif
+   sigset_t set;
+   sigemptyset(&set);
+@@ -338,9 +335,6 @@ static void SegvHandler(const int theSignal,
+   }
+ #endif
+ #ifdef linux
+-  if (fFltExceptions)
+-    feenableexcept (FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+-    //feenableexcept (FE_INVALID | FE_DIVBYZERO);
+ #endif
+ //  cout << "OSD::SegvHandler activated(SA_SIGINFO)" << endl ;
+   if ( ip != NULL ) {
+@@ -425,8 +419,6 @@ void OSD::SetSignal(const Standard_Boolean aFloatingSignal)
+ #endif
+     }
+ #elif defined (linux)
+-    feenableexcept (FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+-    //feenableexcept (FE_INVALID | FE_DIVBYZERO);
+     fFltExceptions = Standard_True;
+ #endif
+   }
