@@ -27,7 +27,7 @@ RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 RUN mkdir /oce/build
 WORKDIR /oce/build
 
-RUN cmake -DOCE_INSTALL_PREFIX:PATH=/usr/local/  \
+RUN cmake -DOCE_INSTALL_PREFIX:PATH=/opt/oce/  \
     -DOCE_WITH_FREEIMAGE:BOOL=ON \
     -DOCE_WITH_GL2PS:BOOL=ON \
     -DOCE_DRAW:BOOL=ON \
